@@ -86,7 +86,7 @@ void setAbsoluteFqMaximum()
 
 int main(int argc, char *argv[])
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication a(argc, argv);
     QStringList args = a.arguments();
 

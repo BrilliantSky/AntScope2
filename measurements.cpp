@@ -22,12 +22,12 @@ Measurements::Measurements(QObject *parent) : QObject(parent),
     m_Z0(50),
     m_dotsNumber(50),
     m_smithTracer(NULL)
-{    
+{
     QString path = Settings::setIniFile();
     m_settings = new QSettings(path,QSettings::IniFormat);
     m_settings->beginGroup("Measurements");
-    m_graphHintEnabled = m_settings->value("GraphHintEnabled",true).toBool();
-    m_graphBriefHintEnabled = m_settings->value("GraphBriefHintEnabled",true).toBool();
+    m_graphHintEnabled = false; //m_settings->value("GraphHintEnabled",true).toBool();
+    m_graphBriefHintEnabled = false; //m_settings->value("GraphBriefHintEnabled",true).toBool();
     m_settings->endGroup();
 
     m_settings->beginGroup("Cable");
@@ -312,7 +312,7 @@ void Measurements::on_newMeasurement(QString name)
         m_rlWidget->graph()->setPen(pen);
         m_smithWidget->graph()->setPen(pen);
         m_measurements.at(m_measurements.length()-2).smithCurve->setPen(pen);
-    }    
+    }
     m_swrWidget->addGraph();
     m_swrWidget->graph()->setAntialiasedFill(false);
     m_phaseWidget->addGraph();
@@ -785,7 +785,7 @@ void Measurements::on_newData(rawData _rawData, bool _redraw)
             RhoReal = ((Rnorm-1)*(Rnorm+1)+Xnorm*Xnorm)/Denom;
             RhoImag = 2*Xnorm/Denom;
 
-            RhoPhase = atan2(RhoImag, RhoReal) / M_PI * 180.0;            
+            RhoPhase = atan2(RhoImag, RhoReal) / M_PI * 180.0;
             RhoMod = sqrt(RhoReal*RhoReal+RhoImag*RhoImag);
 
             QString msg = QString("f=%1, r=%2, x=%3, RhoPhase=%4")
@@ -2350,7 +2350,7 @@ void Measurements::importData(QString _name)
         emit import_finished(fqMin*1000, fqMax*1000);
 
         if (bGood && (iPoints>1) )
-        {            
+        {
             return;
         }
         else
